@@ -17,14 +17,19 @@
 #include "Mobility.h"
 #include "Animation.h"
 double* uavcorr(char* id);
-
+char* matlabloc;
 
 /*init_uav() function is to initialize MATLAB Engine and start UAVs*/
 void init_uav()
 {
-	static int nouav = 1;		// Declared as static, since we want it to be declared and changed only once	
+	static int nouav = 1;	// Declared as static, since we want it to be declared and changed only once	
+	char buf[100] = "cd ";
+	char wp[100];
+	strcpy(wp, matlabloc);
+	strcat(buf, wp);	
 	if (nouav)					// This will run only at the 1st time
 	{
+
 		//MATLAB/SIMULINK INTERFACING
 		fprintf(stderr, "\nNetSim is initializing MATLAB Engine process....\n");
 		if (!(ep = engOpen(NULL))) {
@@ -35,11 +40,10 @@ void init_uav()
 		else
 		{
 			engEvalString(ep, "desktop");
-			engEvalString(ep, "cd H:\Matlab-Files"); //Update user-path
+			engEvalString(ep, buf); //Update user-path
 			fprintf(stderr, "\nMATLAB initialization completed\n");
 			fprintf(stderr, "\nLoading Simulink Model..");
-			fprintf(stderr, "\nRun MATLAB File");
-			_getch();
+			engEvalString(ep, "opSimulink");
 		}
 		//MATLAB/SIMULINK INTERFACING
 		nouav = 0;

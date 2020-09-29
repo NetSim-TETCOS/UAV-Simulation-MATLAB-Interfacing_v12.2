@@ -83,7 +83,7 @@ extern "C" {
 		double dCalculationInterval;
 		//Sumo
 		char* sumoFileName;
-		char* uavWaypoints;
+		char* matlabPath;
 		double step_size;
 		//Pedestrain
 		double Max_Speed;

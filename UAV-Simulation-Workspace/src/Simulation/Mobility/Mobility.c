@@ -160,6 +160,13 @@ _declspec(dllexport) int fn_NetSim_Mobility_Configure(void** var)
 				step_size = pstruMobilityVar->step_size;
 			}
 			break;
+		case MobilityModel_UAVBASEDMOBILITY:
+		{
+			extern char* matlabloc;
+			getXmlVar(&pstruMobilityVar->matlabPath, FILE_NAME, xmlNetSimNode, 1, _STRING, Mobility);
+			matlabloc = pstruMobilityVar->matlabPath;
+		}
+		break;
 		case MobilityModel_PEDESTRAIN:
 			{
 				getXmlVar(&pstruMobilityVar->Max_Speed, MAX_SPEED_M_S, xmlNetSimNode, 1, _DOUBLE, Mobility);
@@ -368,11 +375,10 @@ _declspec(dllexport) int fn_NetSim_Mobility_Finish()
 	//MATLAB/SIMULINK INTERFACING
 	if (ep)
 	{
-		engEvalString(ep, "set_param('fixedWingPathFollowing','SimulationCommand','stop')");
-		engEvalString(ep, "close_system('fixedWingPathFollowing')");
+		engEvalString(ep, "set_param('UAV1','SimulationCommand','stop');set_param('UAV2','SimulationCommand','stop');set_param('UAV3','SimulationCommand','stop');set_param('UAV4','SimulationCommand','stop');");
 		fprintf(stderr, "\nTerminating MATLAB Engine Process\nPress any key to proceed...\n");
 		_getch();
-		engClose(ep);
+		engEvalString(ep, "exit");
 	}
 	//MATLAB/SIMULINK INTERFACING
 	FileBasedMobilityPointersFree();
