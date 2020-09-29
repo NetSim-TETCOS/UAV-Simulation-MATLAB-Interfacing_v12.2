@@ -25,6 +25,7 @@ void init_uav()
 	static int nouav = 1;	// Declared as static, since we want it to be declared and changed only once	
 	char buf[100] = "cd ";
 	char wp[100];
+	char sim[100] = "opSimulink";
 	strcpy(wp, matlabloc);
 	strcat(buf, wp);	
 	if (nouav)					// This will run only at the 1st time
@@ -43,7 +44,7 @@ void init_uav()
 			engEvalString(ep, buf); //Update user-path
 			fprintf(stderr, "\nMATLAB initialization completed\n");
 			fprintf(stderr, "\nLoading Simulink Model..");
-			engEvalString(ep, "opSimulink");
+			engEvalString(ep, sim);
 		}
 		//MATLAB/SIMULINK INTERFACING
 		nouav = 0;
