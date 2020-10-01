@@ -102,13 +102,13 @@ double* uavcorr(int id)
 	double* ycor = NULL;
 	double* zcor = NULL;
 	if (id == 1)
-		engEvalString(ep, "set_param('UAV1','SimulationCommand','pause');");
+		engEvalString(ep, "set_param('UAV1','SimulationCommand','continue');set_param('UAV1','SimulationCommand','pause');");
 	else if (id == 2)
-		engEvalString(ep, "set_param('UAV2','SimulationCommand','pause');");
+		engEvalString(ep, "set_param('UAV2','SimulationCommand','continue');set_param('UAV2','SimulationCommand','pause');");
 	else if (id == 3)
-		engEvalString(ep, "set_param('UAV3','SimulationCommand','pause');");
+		engEvalString(ep, "set_param('UAV3','SimulationCommand','continue');set_param('UAV3','SimulationCommand','pause');");
 	else
-		engEvalString(ep, "set_param('UAV4','SimulationCommand','pause');");
+		engEvalString(ep, "set_param('UAV4','SimulationCommand','continue');set_param('UAV4','SimulationCommand','pause');");
 			
 	engEvalString(ep, "[xa,c]=size(North)");
 	engEvalString(ep, "x_out = North(xa, :)");
@@ -126,14 +126,5 @@ double* uavcorr(int id)
 	coordinates[0] = xcor[0];
 	coordinates[1] = ycor[0];
 	coordinates[2] = zcor[0];
-
-	if (id == 1)
-		engEvalString(ep, "set_param('UAV1','SimulationCommand','continue');");
-	else if (id == 2)
-		engEvalString(ep, "set_param('UAV2','SimulationCommand','continue');");
-	else if (id == 3)
-		engEvalString(ep, "set_param('UAV3','SimulationCommand','continue');");
-	else
-		engEvalString(ep, "set_param('UAV4','SimulationCommand','continue');");
 	return (coordinates);
 }
